@@ -1,11 +1,11 @@
 # Ultralytics YOLO 🚀, AGPL-3.0 license
 
-from ultralytics.engine.predictor import BasePredictor
+from ultralytics.engine.predictor import BasePredictor, StreamOptimizedPredictor
 from ultralytics.engine.results import Results
 from ultralytics.utils import ops
 
 
-class DetectionPredictor(BasePredictor):
+class DetectionPredictor(StreamOptimizedPredictor):
     """
     A class extending the BasePredictor class for prediction based on a detection model.
 
@@ -39,3 +39,4 @@ class DetectionPredictor(BasePredictor):
             pred[:, :4] = ops.scale_boxes(img.shape[2:], pred[:, :4], orig_img.shape)
             results.append(Results(orig_img, path=img_path, names=self.model.names, boxes=pred))
         return results
+
